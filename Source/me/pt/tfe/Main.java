@@ -1,3 +1,10 @@
+/*
+ * Toth File Explorer
+ * 
+ * Created 1/29/2016
+ * by Peter Toth
+ */
+
 package me.pt.tfe;
 
 import java.awt.BorderLayout;
