@@ -1,9 +1,15 @@
+/*
+ * Toolbar.java
+ * 
+ * Created by Peter Toth
+ * on 1/29/2016
+ */
+
 package me.pt.tfe.gui;
 
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;

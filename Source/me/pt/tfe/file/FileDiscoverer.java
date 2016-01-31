@@ -1,3 +1,10 @@
+/*
+ * FileDiscoverer.java
+ * 
+ * Created by Peter Toth
+ * on 1/29/2016
+ */
+
 package me.pt.tfe.file;
 
 import java.io.File;
@@ -43,5 +50,18 @@ public class FileDiscoverer {
 		}
 		
 		return retArray;
+	}
+	
+	public static String getDirectoryOf(String path){
+		
+		String[] brokenPath = path.split("/");
+		String[] newPathBroken = new String[brokenPath.length-1];
+		for(int i = 0; i < newPathBroken.length; i++)
+			newPathBroken[i] = brokenPath[i];
+		String newPath = "";
+		for(String s : newPathBroken)
+			newPath += s+"/";
+		
+		return newPath;
 	}
 }
