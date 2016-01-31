@@ -86,9 +86,24 @@ public class FilePropertiesUI {
 		northPanelMiddle.setLayout(new GridBagLayout());
 		gc = new GridBagConstraints();
 		
+		JLabel fullPathLabel = new JLabel("Path: ");
+		fullPathLabel.setFont(Fonts.ARIAL_15);
+		northPanelMiddle.add(fullPathLabel, gc);
+		
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.weightx = 2;
+		
+		JLabel fPathLabel = new JLabel(FILE_PATH);
+		fPathLabel.setFont(Fonts.ARIAL_12);
+		northPanelMiddle.add(fPathLabel, gc);
+		
+		JPanel northPanelBottom = new JPanel();
+		northPanelBottom.setLayout(new GridBagLayout());
+		gc = new GridBagConstraints();
+		
 		JLabel typeLabel = new JLabel("Type: ");
 		typeLabel.setFont(Fonts.ARIAL_15);
-		northPanelMiddle.add(typeLabel, gc);
+		northPanelBottom.add(typeLabel, gc);
 		
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.weightx = 2;
@@ -97,10 +112,15 @@ public class FilePropertiesUI {
 		ftypeLabel.setFont(Fonts.ARIAL_18);
 		if(FILE_PATH.endsWith("/"))
 			ftypeLabel.setText("Directory");
-		northPanelMiddle.add(ftypeLabel, gc);
+		northPanelBottom.add(ftypeLabel, gc);
+		
+		JPanel northWestPanel = new JPanel();
+		northWestPanel.setLayout(new BorderLayout());
+		northWestPanel.add(northPanelMiddle, BorderLayout.NORTH);
+		northWestPanel.add(northPanelBottom, BorderLayout.SOUTH);
 		
 		northPanel.add(northPanelTop, BorderLayout.NORTH);
-		northPanel.add(northPanelMiddle, BorderLayout.WEST);
+		northPanel.add(northWestPanel, BorderLayout.WEST);
 		northPanel.add(new JLabel("Preview:"), BorderLayout.SOUTH);
 		p.add(northPanel, BorderLayout.NORTH);
 		
