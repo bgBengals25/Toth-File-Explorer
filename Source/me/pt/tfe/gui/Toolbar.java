@@ -29,7 +29,7 @@ public class Toolbar extends JToolBar{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] splitPath = g.CURRENT_PATH.split("/");
+				String[] splitPath = Grid.CURRENT_PATH.split("/");
 				String[] chopPath = new String[splitPath.length-1];
 				int l = splitPath.length-1;
 				for (int i = 0; i<l; i++)
@@ -45,7 +45,7 @@ public class Toolbar extends JToolBar{
 					}
 				}
 				rejoinedPath += "/";
-				g.CURRENT_PATH = rejoinedPath;
+				Grid.CURRENT_PATH = rejoinedPath;
 				g.updateInterface();
 			}
 		});
@@ -58,7 +58,7 @@ public class Toolbar extends JToolBar{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				g.CURRENT_PATH = "/home/"+System.getProperty("user.name")+"/";
+				Grid.CURRENT_PATH = "/home/"+System.getProperty("user.name")+"/";
 				g.updateInterface();
 			}
 		});
@@ -71,7 +71,7 @@ public class Toolbar extends JToolBar{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				g.CURRENT_PATH = "/";
+				Grid.CURRENT_PATH = "/";
 				g.updateInterface();
 			}
 		});

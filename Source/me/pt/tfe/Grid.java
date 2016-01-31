@@ -31,6 +31,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import me.pt.tfe.error.ErrorUI;
 import me.pt.tfe.file.FileDiscoverer;
 import me.pt.tfe.file.properties.PropertyParser;
 import me.pt.tfe.gui.FilePropertiesUI;
@@ -40,7 +41,7 @@ public class Grid extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-	public String CURRENT_PATH = "/home/"+System.getProperty("user.name")+"/";
+	public static String CURRENT_PATH = "/home/"+System.getProperty("user.name")+"/";
 	
 	private JTextField pathField;
 	DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -93,7 +94,7 @@ public class Grid extends JPanel{
 	public void updateInterface(){
 		
 		listModel.clear();
-		String[] dirContents = FileDiscoverer.getDirectoryContents(CURRENT_PATH, false);
+		String[] dirContents = FileDiscoverer.getDirectoryContents(CURRENT_PATH, CURRENT_PATH, false, (Grid)jPanelRef);
 		for (String file : dirContents){
 			listModel.addElement(file);
 		}
@@ -141,6 +142,7 @@ public class Grid extends JPanel{
 										updateInterface();
 									}
 								} catch (IOException ioe) {
+									ErrorUI.sendException("Grid.java -> Failed to open '"+pfile+"'!\n\n"+ioe.getStackTrace(), (Grid)jPanelRef);
 									ioe.printStackTrace();
 								}
 							}
@@ -151,7 +153,7 @@ public class Grid extends JPanel{
 							
 							PropertyParser configParser = new PropertyParser("config.properties");
 							String[] val = {"defaultTerminal"};
-							val = configParser.getPropValues(val);
+							val = configParser.getPropValues(val, (Grid)jPanelRef);
 							String defaultTerminal = val[0];
 							
 							JMenuItem runInTerminalItem = new JMenuItem("Run In Terminal");
@@ -169,7 +171,7 @@ public class Grid extends JPanel{
 										fullCommand[fullCommand.length-1] = pfile;
 										Runtime.getRuntime().exec(fullCommand);
 									} catch (IOException e1) {
-										System.out.println("Failed to run file in terminal using command: "+defaultTerminal+" "+pfile);
+										ErrorUI.sendException("Grid.java -> Failed to run file in terminal using command: "+defaultTerminal+" "+pfile+"\n\n"+e1.getStackTrace(), (Grid)jPanelRef);
 									}
 								}
 							});
@@ -184,7 +186,7 @@ public class Grid extends JPanel{
 							
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								new FilePropertiesUI(pfile, (Grid)jPanelRef);
+								new FilePropertiesUI(pfile, CURRENT_PATH, (Grid)jPanelRef);
 							}
 						});
 						fpop.add(propertiesItem);

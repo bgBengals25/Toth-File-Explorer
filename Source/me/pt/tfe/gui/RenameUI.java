@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import me.pt.tfe.Grid;
+import me.pt.tfe.error.ErrorUI;
 import me.pt.tfe.file.FileActions;
 import me.pt.tfe.file.FileDiscoverer;
 
@@ -75,7 +76,7 @@ public class RenameUI {
 						frame.dispose();
 					}
 				}catch(IOException ioe){
-					ioe.printStackTrace();
+					ErrorUI.sendException("Failed to rename file!\n\n"+ioe.getMessage(), gridRef);
 				}
 			}
 		});
@@ -112,7 +113,7 @@ public class RenameUI {
 						frame.dispose();
 					}
 				}catch(IOException ioe){
-					ioe.printStackTrace();
+					ErrorUI.sendException("Failed to rename file!\n\n"+ioe.getMessage(), gridRef);
 				}
 			}
 		});

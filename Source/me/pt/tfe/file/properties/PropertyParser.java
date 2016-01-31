@@ -16,6 +16,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import me.pt.tfe.Grid;
+import me.pt.tfe.error.ErrorUI;
+
 public class PropertyParser {
 
 	private InputStream inputStream;
@@ -25,7 +28,7 @@ public class PropertyParser {
 		this.propFileName = propFileName;
 	}
 	
-	public String[] getPropValues(String[] vals) {
+	public String[] getPropValues(String[] vals, Grid ref) {
 		
 		try{
 			Properties prop = new Properties();
@@ -35,25 +38,25 @@ public class PropertyParser {
 			if(inputStream != null){
 				prop.load(inputStream);
 			}else{
-				throw new FileNotFoundException("Property file could not be found in classpath: "+propFileName);
+				throw new FileNotFoundException("PropertyParser.java -> Property file could not be found in classpath: "+propFileName);
 			}
 			
 			for (int i = 0; i < vals.length; i++){
 				vals[i] = prop.getProperty(vals[i]);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			ErrorUI.sendException("PropertyParser.java -> Failed to load properties!\n\n"+e.getStackTrace(), ref);
 		}finally{
 			try {
 				inputStream.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				ErrorUI.sendException("PropertyParser.java -> Failed to close properties!\n\n"+e.getStackTrace(), ref);
 			}
 		}
 		return vals;
 	}
 	
-	public void setPropValue(String propName, String propValue) {
+	public void setPropValue(String propName, String propValue, Grid ref) {
 		OutputStream out = null;
 		try {
 
@@ -75,7 +78,7 @@ public class PropertyParser {
 
        }
         catch (Exception e ) {
-            e.printStackTrace();
+        	ErrorUI.sendException("PropertyParser.java -> Failed to set properties!\n\n"+e.getStackTrace(), ref);
         }
         finally{
 
@@ -85,9 +88,7 @@ public class PropertyParser {
                     out.close();
                 } 
                 catch (IOException ex) {
-
-                    System.out.println("IOException: Could not close output stream -> " + ex.getMessage());
-                    ex.printStackTrace();
+                	ErrorUI.sendException("PropertyParser.java -> Failed to close output stream!\n\n"+ex.getStackTrace(), ref);
                 }
             }
         }

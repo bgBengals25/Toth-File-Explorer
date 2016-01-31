@@ -23,14 +23,15 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import me.pt.tfe.Grid;
+import me.pt.tfe.error.ErrorUI;
 import me.pt.tfe.file.FileDiscoverer;
 
 public class FilePropertiesUI {
 
-	private String FILE_PATH, FILE_NAME;
+	private static String FILE_PATH, FILE_NAME;
 	private JFrame frame;
 	
-	public FilePropertiesUI(String fpath, Grid gridRef){
+	public FilePropertiesUI(String fpath, String current_path, Grid gridRef){
 		
 		FILE_PATH = fpath;
 		String[] fpathBroken = fpath.split("/");
@@ -116,12 +117,12 @@ public class FilePropertiesUI {
 						fPreview.append(line+"\n");
 					}
 				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					ErrorUI.sendException("FilePropertiesUI.java -> Failed to load preview!\n\n"+e.getStackTrace(), gridRef);
 				} catch (IOException e) {
-					e.printStackTrace();
+					ErrorUI.sendException("FilePropertiesUI.java -> Failed to load preview!\n\n"+e.getStackTrace(), gridRef);
 				}
 			}else{
-				String[] dirContents = FileDiscoverer.getDirectoryContents(FILE_PATH, false);
+				String[] dirContents = FileDiscoverer.getDirectoryContents(FILE_PATH, current_path, false, gridRef);
 				ArrayList<String> dContents = new ArrayList<>();
 				for(String s : dirContents)
 					dContents.add(s);

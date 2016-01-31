@@ -16,7 +16,7 @@ import me.pt.tfe.gui.Toolbar;
 public class Main {
 	
 	public static void main(String [] args){
-		
+
 		JFrame frame = new JFrame("Toth File Explorer ALPHA");
 		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
