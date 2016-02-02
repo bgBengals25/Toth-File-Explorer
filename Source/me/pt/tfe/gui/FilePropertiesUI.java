@@ -156,6 +156,7 @@ public class FilePropertiesUI {
 		}else{
 			fPreview.setText("File too large to preview!");
 		}
+		fPreview.setFont(Fonts.UBUNTUMONO_14);
 		JScrollPane jsp = new JScrollPane();
 		jsp.setViewportView(fPreview);
 		fPreview.setCaretPosition(0);

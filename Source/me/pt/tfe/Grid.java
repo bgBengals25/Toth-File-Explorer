@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 
 import me.pt.tfe.error.ErrorUI;
 import me.pt.tfe.file.FileDiscoverer;
-import me.pt.tfe.file.properties.PropertyParser;
+import me.pt.tfe.file.res.properties.PropertyParser;
 import me.pt.tfe.gui.FilePropertiesUI;
 import me.pt.tfe.gui.Fonts;
 
@@ -116,6 +116,12 @@ public class Grid extends JPanel{
 						if(dir.endsWith("/")){
 							CURRENT_PATH += dir;
 							updateInterface();
+						}else{
+							try {
+								Desktop.getDesktop().open(new File(CURRENT_PATH+dir));
+							} catch (IOException e) {
+								ErrorUI.sendException("Grid.java -> Failed to open '"+dir+"'!\n\n"+e.getStackTrace(), (Grid)jPanelRef);
+							}
 						}
 					}
 				}else if(evt.getButton() == MouseEvent.BUTTON3){

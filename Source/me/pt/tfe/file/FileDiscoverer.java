@@ -55,6 +55,8 @@ public class FileDiscoverer {
 			}
 		}catch(Exception e){
 			ErrorUI.sendException("FileDiscoverer.java -> Failed to get contents of '"+path+"'!\n\n"+e.getStackTrace(), ref);
+			Grid.CURRENT_PATH = getDirectoryOf(Grid.CURRENT_PATH);
+			ref.updateInterface();
 		}
 		
 		return retArray;

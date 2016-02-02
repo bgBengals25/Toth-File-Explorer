@@ -10,14 +10,24 @@ package me.pt.tfe;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import com.jtattoo.plaf.fast.FastLookAndFeel;
 
 import me.pt.tfe.gui.Toolbar;
 
 public class Main {
 	
 	public static void main(String [] args){
+		
+		try {
+			UIManager.setLookAndFeel(new FastLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 
-		JFrame frame = new JFrame("Toth File Explorer ALPHA");
+		JFrame frame = new JFrame("Toth File Explorer ALPHA 1.1.1");
 		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -7,10 +7,13 @@
 
 package me.pt.tfe.gui;
 
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
@@ -22,9 +25,15 @@ public class Toolbar extends JToolBar{
 	
 	public Toolbar(Grid g){
 		
+		this.setFloatable(false);
+		
 		setMargin(new Insets(5, 5, 5, 5));
 		
-		JButton upButton = new JButton("^");
+		JButton upButton = new JButton();
+		upButton.setToolTipText("Navigate up a directory");
+		upButton.setIcon((Icon)new ImageIcon(new ImageIcon("res/return10.png").getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH)));
+		upButton.setSize(64, 64);
+		upButton.setFocusable(false);
 		upButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -53,7 +62,10 @@ public class Toolbar extends JToolBar{
 		
 		addSeparator();
 		
-		JButton homeButton = new JButton("Home");
+		JButton homeButton = new JButton();
+		homeButton.setToolTipText("Navigate to your home directory");
+		homeButton.setIcon((Icon)new ImageIcon(new ImageIcon("res/home150.png").getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH)));
+		homeButton.setFocusable(false);
 		homeButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -66,7 +78,10 @@ public class Toolbar extends JToolBar{
 		
 		addSeparator();
 		
-		JButton rootButton = new JButton("Root");
+		JButton rootButton = new JButton();
+		rootButton.setToolTipText("Navigate to the root directory");
+		rootButton.setIcon((Icon)new ImageIcon(new ImageIcon("res/round61.png").getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH)));
+		rootButton.setFocusable(false);
 		rootButton.addActionListener(new ActionListener(){
 
 			@Override
