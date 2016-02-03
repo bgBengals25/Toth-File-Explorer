@@ -8,6 +8,8 @@
 package me.pt.tfe.file;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import me.pt.tfe.Grid;
@@ -29,6 +31,7 @@ public class FileDiscoverer {
 			if (showHidden){
 				for (File file : files){
 					if(file.isDirectory()){
+						
 						rfiles.add(file.getName()+"/");
 					}else{
 						rfiles.add(file.getName());
@@ -73,5 +76,11 @@ public class FileDiscoverer {
 			newPath += s+"/";
 		
 		return newPath;
+	}
+	
+	public static boolean isLink(String path){
+		if (Files.isSymbolicLink(Paths.get(path)))
+			return true;
+		return false;
 	}
 }

@@ -27,7 +27,7 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		JFrame frame = new JFrame("Toth File Explorer ALPHA 1.1.1");
+		JFrame frame = new JFrame("Toth File Explorer ALPHA 1.2.0");
 		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

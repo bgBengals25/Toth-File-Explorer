@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import me.pt.tfe.error.ErrorUI;
 import me.pt.tfe.file.FileDiscoverer;
 import me.pt.tfe.file.res.properties.PropertyParser;
+import me.pt.tfe.gui.FileListCellRenderer;
 import me.pt.tfe.gui.FilePropertiesUI;
 import me.pt.tfe.gui.Fonts;
 
@@ -94,16 +95,27 @@ public class Grid extends JPanel{
 	public void updateInterface(){
 		
 		listModel.clear();
+		
 		String[] dirContents = FileDiscoverer.getDirectoryContents(CURRENT_PATH, CURRENT_PATH, false, (Grid)jPanelRef);
 		for (String file : dirContents){
 			listModel.addElement(file);
 		}
+		
 		@SuppressWarnings("rawtypes")
 		Collection list = Collections.list(listModel.elements());
 		Collections.sort((List<String>) list, String.CASE_INSENSITIVE_ORDER);
+		
 		listModel.clear();
-		for(Object o:list){ if(o.toString().endsWith("/")){listModel.addElement("D -> "+(String)o);}else{listModel.addElement("F -> "+(String)o);} }
+		
+		for(Object o:list){ 
+			if(o.toString().endsWith("/")){
+				listModel.addElement((String)o);
+			}else{
+				listModel.addElement((String)o);
+			}
+		}
 		contents = new JList<>(listModel);
+		contents.setCellRenderer(new FileListCellRenderer());
 		contents.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt){
 				@SuppressWarnings("rawtypes")
@@ -201,7 +213,6 @@ public class Grid extends JPanel{
 				}
 			}
 		});
-		contents.setFont(Fonts.UBUNTUMONO_16);
 		add(new JScrollPane(contents), BorderLayout.CENTER);
 		
 		pathField.setText(CURRENT_PATH);
